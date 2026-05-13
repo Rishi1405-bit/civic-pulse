@@ -1,0 +1,8 @@
+{
+  "name": "Remix: CivicPulse",
+  "description": "A social platform for reporting and tracking local government issues with community voting and official responses.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": []
+}

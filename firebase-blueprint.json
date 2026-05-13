@@ -1,0 +1,42 @@
+{
+  "entities": {
+    "Issue": {
+      "title": "Civic Issue",
+      "description": "A local government issue reported by a citizen.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Short summary of the issue" },
+        "description": { "type": "string", "description": "Detailed description" },
+        "category": { "type": "string", "description": "Category (e.g., Pothole, Lighting)" },
+        "status": { "type": "string", "enum": ["reported", "in-progress", "resolved"] },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "voteCount": { "type": "number", "description": "Net votes (upvotes - downvotes)" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "description", "category", "status", "authorId", "voteCount", "createdAt", "updatedAt"]
+    },
+    "Vote": {
+      "title": "Issue Vote",
+      "description": "A user's vote on a specific issue.",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["up", "down"] },
+        "userId": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["type", "userId", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/issues/{issueId}": {
+      "schema": "Issue",
+      "description": "Top-level collection for civic issues."
+    },
+    "/issues/{issueId}/votes/{userId}": {
+      "schema": "Vote",
+      "description": "Subcollection for votes, keyed by userId to prevent double voting."
+    }
+  }
+}
